@@ -1,12 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
-</head>
-<body>
-    <h1>Welcome to My Website!</h1>
-    <p>Hosted on GitHub and Cloudflare Pages.</p>
-</body>
-</html>
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Image } from "lucide-react";
+
+export default function TachStyleWebsite() {
+  const [products] = useState([
+    { id: 1, name: "Sweater", price: "$80", img: "/images/sweater.jpg" },
+    { id: 2, name: "Jacket", price: "$120", img: "/images/jacket.jpg" },
+    { id: 3, name: "Dress", price: "$90", img: "/images/dress.jpg" },
+  ]);
+
+  return (
+    <div className="min-h-screen bg-white text-black flex flex-col items-center">
+      <header className="w-full p-6 flex justify-between items-center border-b">
+        <h1 className="text-3xl font-bold">Brand Name</h1>
+        <nav className="space-x-6">
+          <a href="#" className="text-lg">Shop</a>
+          <a href="#" className="text-lg">About</a>
+          <a href="#" className="text-lg">Contact</a>
+        </nav>
+      </header>
+
+      <main className="w-full max-w-6xl p-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {products.map((product) => (
+            <Card key={product.id} className="shadow-md rounded-lg">
+              <CardContent>
+                <img
+                  src={product.img}
+                  alt={product.name}
+                  className="w-full h-64 object-cover rounded-t-lg"
+                />
+                <div className="p-4 text-center">
+                  <h2 className="text-xl font-semibold">{product.name}</h2>
+                  <p className="text-gray-700">{product.price}</p>
+                  <Button className="mt-4 w-full">Add to Cart</Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </main>
+
+      <footer className="w-full p-6 text-center border-t mt-6">
+        <p>&copy; 2025 Brand Name. All Rights Reserved.</p>
+      </footer>
+    </div>
+  );
+}
